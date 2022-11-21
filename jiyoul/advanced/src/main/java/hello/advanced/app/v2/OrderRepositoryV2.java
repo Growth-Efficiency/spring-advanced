@@ -1,21 +1,22 @@
-package hello.advanced.app.v1;
+package hello.advanced.app.v2;
 
+import hello.advanced.trace.TraceId;
 import hello.advanced.trace.TraceStatus;
-import hello.advanced.trace.helloTrace.HelloTraceV1;
+import hello.advanced.trace.helloTrace.HelloTraceV2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class OrderRepositoryV1 {
+public class OrderRepositoryV2 {
 
-    private final HelloTraceV1 helloTraceV1;
+    private final HelloTraceV2 helloTraceV2;
 
-    public void save(String itemId) {
+    public void save(TraceId traceId, String itemId) {
 
         TraceStatus status = null;
         try {
-            status = helloTraceV1.begin("OrderRepositoryV1.save()");
+            status = helloTraceV2.beginSync(traceId, "OrderRepositoryV1.save()");
 
             //저장 로직
             if (itemId.equals("ex")) {
@@ -23,9 +24,9 @@ public class OrderRepositoryV1 {
             }
             sleep(1000);
 
-            helloTraceV1.end(status);
+            helloTraceV2.end(status);
         } catch (Exception e) {
-            helloTraceV1.exception(status, e);
+            helloTraceV2.exception(status, e);
             throw e;
         }
     }
