@@ -3,11 +3,9 @@ package hello.advanced.trace.logtrace;
 import hello.advanced.trace.TraceStatus;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+class ThreadLocalLogTraceTest {
 
-class FieldLogTraceTest {
-
-	FieldLogTrace trace = new FieldLogTrace();
+	ThreadLocalLogTrace trace = new ThreadLocalLogTrace();
 
 	@Test
 	void beging_end_level2() {
@@ -18,6 +16,7 @@ class FieldLogTraceTest {
 		trace.end(status2);
 	}
 
+
 	@Test
 	void beging_exception_level2() {
 		TraceStatus status1 = trace.begin("hello1");
@@ -26,5 +25,4 @@ class FieldLogTraceTest {
 		trace.exception(status1, new IllegalArgumentException());
 		trace.exception(status2, new IllegalArgumentException());
 	}
-
 }
